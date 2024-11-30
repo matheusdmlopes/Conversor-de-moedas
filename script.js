@@ -1,10 +1,11 @@
 const convertButton = document.querySelector(".convert-button")
 const currencySelect = document.querySelector(".currency-select")
+const currencyOptions = document.querySelector(".currency-options")
 
 function convertValues() {
     const inputCurrencyValue = document.querySelector(".input-currency").value
-    const currencyValueToConvert = document.querySelector(".currency-value-to-convert")   //Valor em Real
-    const currencyValueConverted = document.querySelector(".currency-value") // Outras Moedas 
+    const currencyValueToConvert = document.querySelector(".currency-value-to-convert")   // Valor a ser convertido
+    const currencyValueConverted = document.querySelector(".currency-value") // Valor convertido 
 
     const dolarToday = 5.8
     const euroToday = 6.2
@@ -29,7 +30,7 @@ function convertValues() {
             currency: "GPB"
         }).format(inputCurrencyValue / libraToday)
     }
-    if (currencySelect.value == "peso-agentino") {
+    if (currencySelect.value == "peso-argentino") {
         currencyValueConverted.innerHTML = new Intl.NumberFormat("es-AR", {
             style: "currency",
             currency: "ARS"
@@ -42,31 +43,58 @@ function convertValues() {
 }
 
 function changeCurrency() {
-    const currencyName = document.getElementById("currency-name")
-    const currencyImage = document.querySelector(".currency-img")
+    const currencyToName = document.getElementById("currency-to-name")
+    const currencyFromName = document.getElementById("currency-from-name")
+    const currencyFromImage = document.querySelector(".currency-from-img")
+    const currencyToImage = document.querySelector(".currency-to-img")
+
+    if (currencyOptions.value == "real") {
+        currencyFromName.innerHTML = "R$ Real Brasileiro"
+        currencyFromImage.src = "/assets/real.png"
+    }
+
+    if (currencyOptions.value == "dolar") {
+        currencyFromName.innerHTML = "Dólar americano"
+        currencyFromImage.src = "/assets/dolar.png"
+    }
+
+    if (currencyOptions.value == "euro") {
+        currencyFromName.innerHTML = "Euro"
+        currencyFromImage.src = "/assets/euro.png"
+    }
+
+    if (currencyOptions.value == "libra") {
+        currencyFromName.innerHTML = "£ Libra"
+        currencyFromImage.src = "/assets/libra.png"
+    }
+
+    if (currencyOptions.value == "peso-argentino") {
+        currencyFromName.innerHTML = "$ Peso Argentino"
+        currencyFromImage.src = "/assets/pesoArgentino.png"
+    }
 
     if (currencySelect.value == "dolar") {
-        currencyName.innerHTML = "Dólar americano"
-        currencyImage.src="/assets/dolar.png"
+        currencyToName.innerHTML = "Dólar americano"
+        currencyToImage.src = "/assets/dolar.png"
     }
 
     if (currencySelect.value == "euro") {
-        currencyName.innerHTML = "Euro"
-        currencyImage.src="./assets/euro.png"
-    }  
-    
+        currencyToName.innerHTML = "Euro"
+        currencyToImage.src = "./assets/euro.png"
+    }
+
     if (currencySelect.value == "libra") {
-        currencyName.innerHTML = "£ Libra"
-        currencyImage.src="./assets/libra.png"
-    }  
+        currencyToName.innerHTML = "£ Libra"
+        currencyToImage.src = "./assets/libra.png"
+    }
 
-    if (currencySelect.value == "peso-agentino") {
-        currencyName.innerHTML = "$ Peso Agentino"
-        currencyImage.src="./assets/peso argentino.png"
-    }  
+    if (currencySelect.value == "peso-argentino") {
+        currencyToName.innerHTML = "$ Peso Argentino"
+        currencyToImage.src = "./assets/pesoArgentino.png"
+    }
 
-
-    convertValues()
 }
+
+currencyOptions.addEventListener("change", changeCurrency)
 currencySelect.addEventListener("change", changeCurrency)
 convertButton.addEventListener("click", convertValues)
